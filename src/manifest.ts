@@ -41,14 +41,14 @@ export async function getManifest() {
     ],
     host_permissions: ['*://*/*'],
     content_scripts: [
-      {
-        matches: [
-          '<all_urls>',
-        ],
-        js: [
-          'dist/contentScripts/index.global.js',
-        ],
-      },
+      // {
+      //   matches: [
+      //     '<all_urls>',
+      //   ],
+      //   js: [
+      //     'dist/contentScripts/index.global.js',
+      //   ],
+      // },
     ],
     web_accessible_resources: [
       {
