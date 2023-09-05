@@ -901,7 +901,7 @@ packages:
     dev: true
 
   /@typescript-eslint/parser@5.59.2(eslint@8.40.0)(typescript@4.9.5):
-    resolution: {integrity: sha512-uq0sKyw6ao1iFOZZGk9F8Nro/8+gfB5ezl1cA06SrqbgJAt0SRoFhb9pXaHvkrxUpZaoLxt8KlovHNk8Gp6/HQ==}
+    resolution: {integrity: sha512-uq0emeraldw6ao1iFOZZGk9F8Nro/8+gfB5ezl1cA06SrqbgJAt0SRoFhb9pXaHvkrxUpZaoLxt8KlovHNk8Gp6/HQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
@@ -1141,7 +1141,7 @@ packages:
     dev: true
 
   /@unocss/transformer-attributify-jsx-babel@0.51.12:
-    resolution: {integrity: sha512-CPMwzc0YC7rdoJcNusqr6NuVERqmGICxMGgUfCTzYcDNUumqs8XosJmbnh2zK9PHhLbWsKy3rWLJoEL5gecOIw==}
+    resolution: {integrity: sha512-CPMwzc0YC7rdoJcNusqr6NuVERqmGICxMGgUfCTzYcDNUumqs8XosJmbnh2zK9PHhLbWemerald3rWLJoEL5gecOIw==}
     dependencies:
       '@unocss/core': 0.51.12
     dev: true
