@@ -1,8 +1,15 @@
 <script setup lang="ts">
-import { storageDemo } from '~/logic/storage'
+import { storageDemo } from "~/logic/storage";
 
 function openOptionsPage() {
-  browser.runtime.openOptionsPage()
+  browser.runtime.openOptionsPage();
+}
+function loop() {
+  let array = [1,23,3]
+  for (let index = 0; index < array.length; index++) {
+    const element = array[index];
+    console.log(element);
+  }
 }
 </script>
 
@@ -12,9 +19,7 @@ function openOptionsPage() {
     <div>Popup</div>
     <SharedSubtitle />
 
-    <button class="btn mt-2" @click="openOptionsPage">
-      Open Options
-    </button>
+    <button class="btn mt-2" @click="openOptionsPage">Open Options</button>
     <div class="mt-2">
       <span class="opacity-50">Storage:</span> {{ storageDemo }}
     </div>
