@@ -18,7 +18,7 @@ const quickActionLinks = [
       <h2 class="text-center"><icon-fire class="inline-block text-pink-600" /> Quick actions</h2>
       <div class="flex justify-center flex-wrap gap-2 mt-2 text-sm">
         <Link
-          v-for="btn in quickActionLinks">
+          v-for="(btn,i) in quickActionLinks" :key="i">
           {{ btn.name }}
         </Link>
       </div>
