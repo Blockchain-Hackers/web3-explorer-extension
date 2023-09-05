@@ -74,5 +74,8 @@
   },
   "lint-staged": {
     "*": "eslint --fix"
+  },
+  "dependencies": {
+    "@vueuse/components": "^10.4.1"
   }
 }
