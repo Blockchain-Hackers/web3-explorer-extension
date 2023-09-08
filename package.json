@@ -76,6 +76,8 @@
     "*": "eslint --fix"
   },
   "dependencies": {
-    "@vueuse/components": "^10.4.1"
+    "@lighthouse-web3/sdk": "^0.2.7",
+    "@vueuse/components": "^10.4.1",
+    "ethers": "5.7.2"
   }
 }

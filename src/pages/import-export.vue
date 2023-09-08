@@ -1,5 +1,29 @@
 <script setup>
 import IconRight from '~icons/carbon/chevron-right'
+import { ethers } from 'ethers';
+import lighthouse from '@lighthouse-web3/sdk';
+const progressCallback = (progressData) => {
+  let percentageDone =
+    100 - (progressData?.total / progressData?.uploaded)?.toFixed(2);
+  console.log(percentageDone);
+};
+
+
+const uploadFileEncrypted = async (file) => {
+
+  const sig = await encryptionSignature();
+  const response = await lighthouse.uploadEncrypted(
+    file,
+    "YOUR_API_KEY",
+    sig.publicKey,
+    sig.signedMessage,
+    null,
+    progressCallback
+  );
+  console.log(response);
+
+}
+
 </script>
 
 <template>
@@ -10,15 +34,14 @@ import IconRight from '~icons/carbon/chevron-right'
         Import or export your files
       </p>
       <div class="h-full flex flex-col justify-center items-center flex-wrap gap-2 mt-2 text-sm">
-        <label
-          class="w-full text-center py-10 border border-dashed border-black
+        <label class="w-full text-center py-10 border border-dashed border-black
           bg-emerald-600/10 rounded-md text-emerald-900 hover:bg-emerald-600/20
           transition-all duration-300 cursor-pointer">
           select files
           <input type="file" class="appearance-none hidden" />
         </label>
         <Link class="w-full text-center py-10">
-          export your files
+        export your files
         </Link>
       </div>
     </section>
