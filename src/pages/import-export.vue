@@ -38,7 +38,7 @@ const uploadFileEncrypted = async (file) => {
           bg-emerald-600/10 rounded-md text-emerald-900 hover:bg-emerald-600/20
           transition-all duration-300 cursor-pointer">
           select files
-          <input type="file" class="appearance-none hidden" />
+          <input type="file" @change="(e) => uploadFileEncrypted(e.target.files)" class="appearance-none hidden" />
         </label>
         <Link class="w-full text-center py-10">
         export your files
