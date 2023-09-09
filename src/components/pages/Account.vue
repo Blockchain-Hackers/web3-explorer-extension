@@ -1,7 +1,8 @@
-<script setup>
+<script setup lang="ts">
+import { useStorageLocal } from '~/composables/useStorageLocal'
 import IconRight from '~icons/carbon/chevron-right'
 
-const apiKey = ref('')
+const apiKey = useStorageLocal('apiKey', '')
 const isLoggedIn = ref(false)
 const text = computed(()=>{
   return isLoggedIn.value ? {

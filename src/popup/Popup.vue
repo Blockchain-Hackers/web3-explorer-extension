@@ -1,10 +1,10 @@
 <script setup lang="ts">
 // import { storageDemo } from '~/logic/storage'
-import Account from '~/pages/account.vue'
-import File from '~/pages/file.vue'
-// import FileView from '~/pages/file-view.vue'
-import Home from '~/pages/home.vue'
-import ImportExport from '~/pages/import-export.vue'
+import Account from '~/components/pages/Account.vue'
+import File from '~/components/pages/File.vue'
+// import FileView from '~/components/pages/FileView.vue'
+import Home from '~/components/pages/Home.vue'
+import ImportExport from '~/components/pages/ImportExport.vue'
 
 const navList = [
   { name: 'Home', slug: 'home', component: Home },
