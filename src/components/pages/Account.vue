@@ -74,8 +74,8 @@ const handleSubmit = async () => {
         v-if="notifications.showSuccess"
         class="pl-4 text-green-500 font-medium"
       >
-      Your account has been connected successfully
-    </p>
+        Your account has been connected successfully
+      </p>
       <div class="flex-grow flex mt-10">
         <form @submit.prevent="handleSubmit" class="w-full">
           <label v-if="!isLoggedIn" class="relative block">

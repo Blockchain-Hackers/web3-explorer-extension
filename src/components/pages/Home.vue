@@ -1,12 +1,12 @@
 <script setup>
-import IconFire from '~icons/carbon/fire'
-import Link from '~/components/Link.vue'
+import IconFire from "~icons/carbon/fire";
+import Link from "~/components/Link.vue";
 
 const quickActionLinks = [
-  { name: 'Upload File', path: '/upload' },
-  { name: 'Connect Account', path: '/connect' },
-  { name: 'View Files', path: '/files' },
-]
+  { name: "Upload File", path: "/upload" },
+  { name: "Connect Account", path: "/connect" },
+  { name: "View Files", path: "/files" },
+];
 </script>
 
 <template>
@@ -15,10 +15,11 @@ const quickActionLinks = [
       <strong>Welcome</strong> to FileCoin Explorer
     </h1>
     <div class="mt-10">
-      <h2 class="text-center"><icon-fire class="inline-block text-pink-600" /> Quick actions</h2>
+      <h2 class="text-center">
+        <icon-fire class="inline-block text-pink-600" /> Quick actions
+      </h2>
       <div class="flex justify-center flex-wrap gap-2 mt-2 text-sm">
-        <Link
-          v-for="(btn,i) in quickActionLinks" :key="i">
+        <Link v-for="(btn, i) in quickActionLinks" :key="i">
           {{ btn.name }}
         </Link>
       </div>

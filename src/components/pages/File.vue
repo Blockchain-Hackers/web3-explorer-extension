@@ -1,7 +1,7 @@
 <script setup>
-import IconRight from '~icons/carbon/chevron-right'
-import IconClean from '~icons/carbon/clean'
-import FileCard from '~/components/FileCard.vue'
+import IconRight from "~icons/carbon/chevron-right";
+import IconClean from "~icons/carbon/clean";
+import FileCard from "~/components/FileCard.vue";
 </script>
 
 <template>

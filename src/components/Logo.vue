@@ -1,5 +1,3 @@
 <template>
-  <div class="font-black">
-    Explorer
-  </div>
+  <div class="font-black">Explorer</div>
 </template>

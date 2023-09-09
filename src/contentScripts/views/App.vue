@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { useToggle } from '@vueuse/core'
-import 'uno.css'
+import { useToggle } from "@vueuse/core";
+import "uno.css";
 
-const [show, toggle] = useToggle(false)
+const [show, toggle] = useToggle(false);
 </script>
 
 <template>
-  <div class="fixed right-0 bottom-0 m-5 z-100 flex items-end font-sans select-none leading-1em">
+  <div
+    class="fixed right-0 bottom-0 m-5 z-100 flex items-end font-sans select-none leading-1em"
+  >
     <div
       class="bg-white text-gray-800 rounded-lg shadow w-max h-min"
       p="x-4 y-2"
@@ -14,9 +16,7 @@ const [show, toggle] = useToggle(false)
       transition="opacity duration-300"
       :class="show ? 'opacity-100' : 'opacity-0'"
     >
-      <h1 class="text-lg">
-        Vitesse WebExt
-      </h1>
+      <h1 class="text-lg">Vitesse WebExt</h1>
       <SharedSubtitle />
     </div>
     <button
