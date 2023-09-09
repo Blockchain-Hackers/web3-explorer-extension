@@ -1,7 +1,6 @@
 <script setup lang="ts">
 // import { storageDemo } from '~/logic/storage'
-import navList from "~/routes";
-import { activeNav } from '~/logic/route'
+import { activeNav, navList } from '~/logic/route'
 
 // function openOptionsPage() {
 //   browser.runtime.openOptionsPage()

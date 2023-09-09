@@ -5,7 +5,7 @@ import File from "~/components/pages/File.vue";
 import Home from "~/components/pages/Home.vue";
 import ImportExport from "~/components/pages/ImportExport.vue";
 
-const navList = [
+export const navList = [
   { name: "Home", slug: "home", component: Home },
   { name: "File", slug: "file", component: File },
   { name: "Import / Export", slug: "import-export", component: ImportExport },

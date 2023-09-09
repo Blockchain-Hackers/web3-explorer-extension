@@ -1,8 +1,7 @@
 <script setup>
 import IconFire from "~icons/carbon/fire";
 import Link from "~/components/Link.vue";
-import navList from "~/routes";
-import { activeNav } from '~/logic/route'
+import { activeNav, navList } from '~/logic/route'
 
 const quickActionLinks = [
   { name: "Upload File", path: "/upload", nav: navList[2] },
