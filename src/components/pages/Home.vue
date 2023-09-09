@@ -8,7 +8,6 @@ const quickActionLinks = [
   { name: "Connect Account", path: "/connect",  nav: navList[3]},
   { name: "View Files", path: "/files",  nav: navList[1] },
 ];
-
 const navigate = (btn) => activeNav.value = btn.nav
 </script>
 

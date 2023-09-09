@@ -5,6 +5,10 @@ import { activeNav, navList } from '~/logic/route'
 // function openOptionsPage() {
 //   browser.runtime.openOptionsPage()
 // }
+
+
+// set default active nav
+activeNav.value = navList[0]
 </script>
 
 <template>
