@@ -1,18 +1,7 @@
 <script setup lang="ts">
 // import { storageDemo } from '~/logic/storage'
-import Account from "~/components/pages/Account.vue";
-import File from "~/components/pages/File.vue";
-// import FileView from '~/components/pages/FileView.vue'
-import Home from "~/components/pages/Home.vue";
-import ImportExport from "~/components/pages/ImportExport.vue";
-
-const navList = [
-  { name: "Home", slug: "home", component: Home },
-  { name: "File", slug: "file", component: File },
-  { name: "Import / Export", slug: "import-export", component: ImportExport },
-  { name: "Account", slug: "account", component: Account },
-];
-const activeNav = ref(navList[0]);
+import navList from "~/routes";
+import { activeNav } from '~/logic/route'
 
 // function openOptionsPage() {
 //   browser.runtime.openOptionsPage()
@@ -29,7 +18,7 @@ const activeNav = ref(navList[0]);
       </div>
 
       <div class="w-full mt-4">
-        <NuxtLink
+        <a
           v-for="(nav, i) in navList"
           :key="i"
           @click="activeNav = nav"
@@ -40,7 +29,7 @@ const activeNav = ref(navList[0]);
           class="block w-full p-3 border-b last-of-type:border-b-none border-emerald-600/10 hover:bg-emerald-600/10 cursor-pointer text-emerald-900 transition-all duration-200 font-bold"
         >
           {{ nav.name }}
-        </NuxtLink>
+        </a>
       </div>
     </aside>
     <div class="p-2 overflow-y-auto text-gray-600 w-full">

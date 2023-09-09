@@ -59,14 +59,14 @@ const options = ref([
         v-on-click-outside="() => (showMenu = false)"
         class="absolute right-2 top-2 bg-gray-800 text-white shadow p-1 rounded-md"
       >
-        <NuxtLink
+        <a
           v-for="(opt, i) in options"
           :key="i"
           to="/file"
           class="block p-1 hover:bg-gray-700 rounded-md cursor-pointer"
         >
           {{ opt.name }}
-        </NuxtLink>
+        </a>
       </div>
     </div>
   </div>
