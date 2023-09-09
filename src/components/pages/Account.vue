@@ -90,7 +90,8 @@ const handleSubmit = async () => {
           </label>
 
           <div v-if="notifications.showError" class="text-red-500 text-sm mt-2">
-            Invalid API key
+            Could not connect to your account. Please check your API key and
+            network connection.
           </div>
 
           <button

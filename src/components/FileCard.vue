@@ -30,7 +30,44 @@ const options = ref([
 <template>
   <div class="w-full rounded-lg shadow border border-gray-200">
     <div class="bg-gray-100 h-20 rounded-lg overflow-hidden">
-      <img :src="src" class="w-full h-full object-cover" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 40 40"
+        lass="w-full h-full object-cover"
+      >
+        <path
+          fill="#fff"
+          d="M6.5 37.5L6.5 2.5 24.793 2.5 33.5 11.207 33.5 37.5z"
+        />
+        <path
+          fill="#788b9c"
+          d="M24.586,3L33,11.414V37H7V3H24.586 M25,2H6v36h28V11L25,2L25,2z"
+        />
+        <g>
+          <path
+            fill="#fff"
+            d="M24.5 11.5L24.5 2.5 24.793 2.5 33.5 11.207 33.5 11.5z"
+          />
+          <path
+            fill="#788b9c"
+            d="M25,3.414L32.586,11H25V3.414 M25,2h-1v10h10v-1L25,2L25,2z"
+          />
+        </g>
+      </svg>
+      <!-- <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-full h-full object-cover"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"
+        />
+      </svg> -->
     </div>
     <div class="p-2 relative">
       <p
