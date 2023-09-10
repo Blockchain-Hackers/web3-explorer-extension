@@ -2,8 +2,8 @@
 import { useStorageLocal, storageLocal } from "~/composables/useStorageLocal";
 import IconRight from "~icons/carbon/chevron-right";
 import lighthouse from "@lighthouse-web3/sdk";
+import { apiKey as _apiKey } from "~/logic/auth-store";
 
-const _apiKey = useStorageLocal("apiKey", "");
 const apiKey = ref(_apiKey.value);
 const isLoggedIn = ref(!!apiKey.value);
 const notifications = ref({
