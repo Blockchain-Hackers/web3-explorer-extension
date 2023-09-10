@@ -29,7 +29,7 @@ watch(_apiKey, (value) => {
       <div class="flex justify-center flex-wrap gap-2 mt-2 text-sm">
         <Link
           v-for="(btn, i) in quickActionLinks.filter(
-            (btn) => btn.guest === !isLoggedIn
+            (btn) => btn.guest === !isLoggedIn,
           )"
           :key="i"
           @click="navigate(btn)"
