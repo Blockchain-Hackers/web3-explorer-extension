@@ -5,10 +5,10 @@ import FileCard from "~/components/FileCard.vue";
 import lighthouse from "@lighthouse-web3/sdk";
 import { apiKey as _apiKey } from "~/logic/auth-store";
 
-let uploads;
+let uploads = ref([]);
 try {
-  uploads = await lighthouse.getUploads(_apiKey.value);
-  console.log(uploads);
+  let response = await lighthouse.getUploads(_apiKey.value);
+  uploads.value = response.data.fileList;
 } catch (error) {
   console.log(error);
 }
@@ -21,9 +21,9 @@ try {
       <div class="flex-grow mt-3 overflow-y-auto">
         <div class="grid grid-cols-2 gap-2 w-full">
           <FileCard
-            v-for="i in 12"
-            cId="0xadsdsndjsidnnondinisndsbi"
-            type="image"
+            v-for="(file, i) in uploads"
+            :cId="file.cid"
+            :type="file.mimeType"
             src="https://encodeclub.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ff271b8ae-36f5-4425-af81-847a2314368f%2Fspeakers_09.png?id=20760a46-29b5-4944-b851-a0b21976f7fe&table=block&spaceId=d0c8094a-e610-4814-9977-ce61e347ef5a&width=690&userId=&cache=v2"
             class=""
           />

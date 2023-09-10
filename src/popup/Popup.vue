@@ -35,7 +35,7 @@ activeNav.value = navList[0];
       </div>
     </aside>
     <div class="p-2 overflow-y-auto text-gray-600 w-full">
-      <component :is="activeNav.component" />
+      <Suspense> <component :is="activeNav.component" /></Suspense>
     </div>
 
     <!-- <Logo />
