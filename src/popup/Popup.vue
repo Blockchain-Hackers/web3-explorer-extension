@@ -6,9 +6,8 @@ import { activeNav, navList } from '~/logic/route'
 //   browser.runtime.openOptionsPage()
 // }
 
-
 // set default active nav
-activeNav.value = navList[0]
+activeNav.value = navList[0];
 </script>
 
 <template>

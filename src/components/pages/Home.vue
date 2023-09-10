@@ -1,14 +1,14 @@
 <script setup>
 import IconFire from "~icons/carbon/fire";
 import Link from "~/components/Link.vue";
-import { activeNav, navList } from '~/logic/route'
+import { activeNav, navList } from "~/logic/route";
 
 const quickActionLinks = [
   { name: "Upload File", path: "/upload", nav: navList[2] },
-  { name: "Connect Account", path: "/connect",  nav: navList[3]},
-  { name: "View Files", path: "/files",  nav: navList[1] },
+  { name: "Connect Account", path: "/connect", nav: navList[3] },
+  { name: "View Files", path: "/files", nav: navList[1] },
 ];
-const navigate = (btn) => activeNav.value = btn.nav
+const navigate = (btn) => (activeNav.value = btn.nav);
 </script>
 
 <template>
@@ -22,8 +22,10 @@ const navigate = (btn) => activeNav.value = btn.nav
       </h2>
       <div class="flex justify-center flex-wrap gap-2 mt-2 text-sm">
         <Link
-          v-for="(btn, i) in quickActionLinks" :key="i"
-          @click="navigate(btn)">
+          v-for="(btn, i) in quickActionLinks"
+          :key="i"
+          @click="navigate(btn)"
+        >
           {{ btn.name }}
         </Link>
       </div>
