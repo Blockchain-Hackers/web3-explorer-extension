@@ -5,8 +5,6 @@ import FileCard from "~/components/FileCard.vue";
 import lighthouse from "@lighthouse-web3/sdk";
 import { apiKey as _apiKey } from "~/logic/auth-store";
 
-console.log(_apiKey);
-
 let uploads;
 try {
   uploads = await lighthouse.getUploads(_apiKey.value);
