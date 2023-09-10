@@ -7,8 +7,8 @@ import { useStorageLocal } from "~/composables/useStorageLocal";
 
 export const navList = [
   { name: "Home", slug: "home", component: Home },
-  { name: "File", slug: "file", component: File },
-  { name: "Import / Export", slug: "import-export", component: ImportExport },
+  { name: "Uploads", slug: "file", component: File },
+  { name: "Other Files", slug: "import-export", component: ImportExport },
   { name: "Account", slug: "account", component: Account },
 ];
 

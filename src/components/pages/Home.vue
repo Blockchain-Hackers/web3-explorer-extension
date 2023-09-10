@@ -2,13 +2,19 @@
 import IconFire from "~icons/carbon/fire";
 import Link from "~/components/Link.vue";
 import { activeNav, navList } from "~/logic/route";
-
+import { useStorageLocal, storageLocal } from "~/composables/useStorageLocal";
 const quickActionLinks = [
-  { name: "Upload File", path: "/upload", nav: navList[2] },
-  { name: "Connect Account", path: "/connect", nav: navList[3] },
-  { name: "View Files", path: "/files", nav: navList[1] },
+  { name: "Upload File", path: "/upload", nav: navList[2], guest: false },
+  { name: "Connect Account", path: "/connect", nav: navList[3], guest: true },
+  { name: "View Uploads", path: "/files", nav: navList[1], guest: false },
 ];
 const navigate = (btn) => (activeNav.value = btn.nav);
+const _apiKey = useStorageLocal("apiKey", "");
+const apiKey = ref(_apiKey.value);
+const isLoggedIn = ref(!!apiKey.value);
+watch(_apiKey, (value) => {
+  isLoggedIn.value = !!value;
+});
 </script>
 
 <template>
@@ -22,7 +28,9 @@ const navigate = (btn) => (activeNav.value = btn.nav);
       </h2>
       <div class="flex justify-center flex-wrap gap-2 mt-2 text-sm">
         <Link
-          v-for="(btn, i) in quickActionLinks"
+          v-for="(btn, i) in quickActionLinks.filter(
+            (btn) => btn.guest === !isLoggedIn
+          )"
           :key="i"
           @click="navigate(btn)"
         >

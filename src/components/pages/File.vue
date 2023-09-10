@@ -2,6 +2,20 @@
 import IconRight from "~icons/carbon/chevron-right";
 import IconClean from "~icons/carbon/clean";
 import FileCard from "~/components/FileCard.vue";
+import lighthouse from "@lighthouse-web3/sdk";
+
+import { useStorageLocal, storageLocal } from "~/composables/useStorageLocal";
+const _apiKey = useStorageLocal("apiKey");
+console.log(_apiKey);
+
+let uploads
+  try {
+    uploads = await lighthouse.getUploads(_apiKey.value);
+    console.log(uploads);
+
+  } catch (error) {
+    console.log(error);
+  }
 </script>
 
 <template>
