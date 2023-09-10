@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useStorageLocal, storageLocal } from "~/composables/useStorageLocal";
+import { storageLocal } from "~/composables/useStorageLocal";
 import IconRight from "~icons/carbon/chevron-right";
 import lighthouse from "@lighthouse-web3/sdk";
 import { apiKey as _apiKey } from "~/logic/auth-store";
@@ -10,7 +10,7 @@ const notifications = ref({
   showError: false,
   showSuccess: false,
 });
-console.log(apiKey);
+
 const text = computed(() => {
   return isLoggedIn.value
     ? {
