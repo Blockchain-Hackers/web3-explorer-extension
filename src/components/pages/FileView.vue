@@ -47,30 +47,42 @@ const options = ref([
     </div>
 
     <div class="pt-2 flex-grow flex flex-col">
-      <div class="flex-grow">
-        <p
-          :class="{ '!text-emerald-600': copied }"
-          class="truncate flex transition-all duration-300 cursor-pointer pr-2 hover:!text-emerald-600"
-          @click="CopyText(cId)"
-        >
-          CID:
-          <strong :class="{ '!text-emerald-600': copied }" class="text-black truncate"
-            >{{ cId }}</strong
+      <div class="flex-grow flex flex-col">
+        <div class="flex flex-col">
+          <p
+            :class="{ '!text-emerald-600': copied }"
+            class="truncate flex transition-all duration-300 cursor-pointer pr-2 hover:!text-emerald-600"
+            @click="CopyText(cId)"
           >
-          <icon-copy class="inline ml-1 min-w-6" />
-        </p>
-
-        <div>
-          <template v-for="detail in details">
-            <p
-              v-if="detail.name !== 'CID'"
-              class="flex justify-between border-b last-of-type:border-b-none py-1"
+            CID:
+            <strong :class="{ '!text-emerald-600': copied }" class="text-black truncate"
+              >{{ cId }}</strong
             >
-              {{ detail.name }}:
-              <strong class="text-black ml-1">{{ detail.value }}</strong>
-            </p>
-          </template>
+            <icon-copy class="inline ml-1 min-w-6" />
+          </p>
+  
+          <div>
+            <template v-for="detail in details">
+              <p
+                v-if="detail.name !== 'CID'"
+                class="flex justify-between border-b last-of-type:border-b-none py-1"
+              >
+                {{ detail.name }}:
+                <strong class="text-black ml-1">{{ detail.value }}</strong>
+              </p>
+            </template>
+          </div>
         </div>
+
+        <h3>People file is shared with</h3>
+        <div class="flex-grow relative mt-1">
+          <div class="absolute inset-0 overflow-y-auto mb-3">
+            <div v-for="n in 6">
+              I don't know how to do this yet
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div class="flex gap-2 justify-between text-sm">
