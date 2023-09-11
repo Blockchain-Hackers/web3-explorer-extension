@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import IconMenu from "~icons/mdi/dots-vertical";
 import { vOnClickOutside } from "@vueuse/components";
+import { fileViewHandler } from "~/logic/file-view-handler";
 
 interface Props {
   src: string;
@@ -29,7 +30,9 @@ const options = ref([
 
 <template>
   <div class="w-full rounded-lg shadow border border-gray-200">
-    <div class="bg-gray-100 h-20 rounded-lg overflow-hidden">
+    <div
+      @click="fileViewHandler(cId)"
+      class="bg-gray-100 h-20 rounded-lg overflow-hidden cursor-pointer">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 40 40"

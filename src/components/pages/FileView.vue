@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import IconCopy from "~icons/mdi/content-copy";
 import Link from "~/components/Link.vue";
+import { cId } from "~/logic/file-view-handler";
 
 const copied = ref(false);
 const CopyText = async (text: string) => {
@@ -49,14 +50,14 @@ const options = ref([
       <div class="flex-grow">
         <p
           :class="{ '!text-emerald-600': copied }"
-          class="truncate inline-block transition-all duration-300 cursor-pointer pr-2 hover:!text-emerald-600"
-          @click="CopyText('0xadsdsndjsidnnondinisndsbi')"
+          class="truncate flex transition-all duration-300 cursor-pointer pr-2 hover:!text-emerald-600"
+          @click="CopyText(cId)"
         >
           CID:
-          <strong :class="{ '!text-emerald-600': copied }" class="text-black"
-            >0xadsdsndjsidnnondinisndsbi</strong
+          <strong :class="{ '!text-emerald-600': copied }" class="text-black truncate"
+            >{{ cId }}</strong
           >
-          <icon-copy class="inline ml-1" />
+          <icon-copy class="inline ml-1 min-w-6" />
         </p>
 
         <div>
