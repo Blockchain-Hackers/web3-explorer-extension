@@ -13,7 +13,14 @@ const form = reactive({
   file: null,
   encrypt: true,
 });
-// uploadFileEncrypted(e.target.files)
+
+const handleSubmit = async () => {
+  if (form.encrypt) {
+    uploadFileEncrypted(form.file);
+  } else {
+    // uploadFile(form.file);
+  }
+};
 
 const uploadFileEncrypted = async (file) => {
   const sig = await encryptionSignature();
