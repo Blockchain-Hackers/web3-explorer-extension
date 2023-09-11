@@ -4,9 +4,9 @@ import Link from "~/components/Link.vue";
 import { activeNav, navList, hiddenNavs } from "~/logic/route";
 import { useStorageLocal, storageLocal } from "~/composables/useStorageLocal";
 const quickActionLinks = [
-  { name: "Upload File", path: "/upload", nav: hiddenNavs[0], guest: false },
-  { name: "Connect Account", path: "/connect", nav: navList[3], guest: true },
-  { name: "View Uploads", path: "/files", nav: navList[1], guest: false },
+  { name: "Upload File", nav: hiddenNavs[0], guest: false },
+  { name: "Connect Account", nav: navList[3], guest: true },
+  { name: "View Uploads", nav: navList[1], guest: false },
 ];
 const navigate = (btn) => (activeNav.value = btn.nav);
 const _apiKey = useStorageLocal("apiKey", "");
