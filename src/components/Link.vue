@@ -1,6 +1,6 @@
 <template>
   <a
-    class="inline-block p-2 px-3 bg-emerald-600/10 rounded-md text-emerald-900 font-medium hover:bg-emerald-600/20 transition-all duration-300 cursor-pointer"
+    class="inline-block p-2 px-4 bg-emerald-600 rounded-md text-white font-medium hover:bg-emerald-700 transition-all duration-300 cursor-pointer"
   >
     <slot />
   </a>

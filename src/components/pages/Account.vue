@@ -94,12 +94,7 @@ const handleSubmit = async () => {
             network connection.
           </div>
 
-          <button
-            class="inline-block p-3 bg-emerald-600/10 rounded-md text-black font-medium mt-3 hover:bg-emerald-700/30 transition-all duration-300 cursor-pointer text-base w-full"
-            type="submit"
-          >
-            {{ text.button }}
-          </button>
+          <button class="block bg-emerald-600 w-full p-2 rounded-md text-white">{{ text.button }}</button>
         </form>
       </div>
     </section>
