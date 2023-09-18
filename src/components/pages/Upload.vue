@@ -3,6 +3,7 @@ import IconRight from "~icons/carbon/chevron-right";
 import IconCheck from "~icons/mdi/check";
 import { ethers } from "ethers";
 import lighthouse from "@lighthouse-web3/sdk";
+import encryptionSignature from "~/src/utils/useCIDEncryption";
 const progressCallback = (progressData) => {
   let percentageDone =
     100 - (progressData?.total / progressData?.uploaded)?.toFixed(2);
