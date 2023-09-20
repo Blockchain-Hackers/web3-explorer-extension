@@ -30,10 +30,14 @@ try {
         </div>
       </div>
       <!-- empty state -->
-      <!-- <div class="flex-grow flex">
+      <div v-if="uploads.length == 1" class="flex-grow flex">
         <div class="w-full h-full flex items-center justify-center">
-          <div class="w-[300px] h-[300px] flex items-center justify-center flex-col">
-            <div class="w-[100px] h-[100px] flex items-center justify-center bg-emerald-500/10 rounded-full">
+          <div
+            class="w-[300px] h-[300px] flex items-center justify-center flex-col"
+          >
+            <div
+              class="w-[100px] h-[100px] flex items-center justify-center bg-emerald-500/10 rounded-full"
+            >
               <icon-clean class="w-[50px] h-[50px] text-emerald-500" />
             </div>
 
@@ -42,7 +46,7 @@ try {
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
     </section>
   </div>
 </template>
