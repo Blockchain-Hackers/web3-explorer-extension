@@ -21,7 +21,7 @@ const handleSubmit = async () => {
   if (form.encrypt) {
     uploadFileEncrypted(form.file);
   } else {
-    // uploadFile(form.file);
+    uploadFile(form.file);
   }
 };
 
@@ -29,7 +29,7 @@ const uploadFileEncrypted = async (file) => {
   const sig = await encryptionSignature();
   const response = await lighthouse.uploadEncrypted(
     file,
-    _apiKey,
+    _apiKey.value,
     sig.publicKey,
     sig.signedMessage,
     null,
@@ -37,13 +37,28 @@ const uploadFileEncrypted = async (file) => {
   );
   console.log(response);
 };
+
+const uploadFile = async (file) => {
+  try {
+    const response = await lighthouse.upload(
+      file,
+      _apiKey.value,
+      false,
+      null,
+      progressCallback
+    );
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>
 
 <template>
   <div class="h-full">
     <section class="h-full w-full flex flex-col">
       <h2 class="font-bold">
-        <icon-right class="inline-block" /> Upload Files
+        <icon-right class="inline-block" /> Upload Files ss
       </h2>
       <p class="text-gray-500 font-medium pl-4">Upload a File</p>
 
@@ -60,7 +75,6 @@ const uploadFileEncrypted = async (file) => {
               @change="(e) => (form.file = e.target.files[0])"
               class="appearance-none hidden"
               required
-              name="user-file"
             />
           </label>
           <p v-if="!!form.file">
@@ -72,7 +86,6 @@ const uploadFileEncrypted = async (file) => {
               v-model="form.encrypt"
               type="checkbox"
               name="account-type"
-              required
               class="appearance-none peer"
             />
             <div

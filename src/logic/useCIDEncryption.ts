@@ -2,28 +2,26 @@ import { ethers } from "ethers";
 import lighthouse from "@lighthouse-web3/sdk";
 
 export const encryptionSignature = async () => {
- 
+  let currentBrowser = typeof chrome !== undefined ? chrome : browser;
 
-  // let currentBrowser = typeof chrome !== undefined ? chrome : browser;
+  const tabs = await currentBrowser.tabs.query({
+    active: true,
+    currentWindow: true,
+  });
 
-  // const tabs = await currentBrowser.tabs.query({
-  //   active: true,
-  //   currentWindow: true,
-  // });
+  const activeTab = tabs[0];
+  const windowObj = activeTab.window;
 
-  // const activeTab = tabs[0];
-  // const windowObj = activeTab.window;
-
-  // const provider = new ethers.providers.Web3Provider(windowObj.ethereum);
-  // const signer = provider.getSigner();
-  // const address = await signer.getAddress();
-  // const messageRequested = (await lighthouse.getAuthMessage(address)).data
-  //   .message;
-  // const signedMessage = await signer.signMessage(messageRequested);
-  // return {
-  //   signedMessage: signedMessage,
-  //   publicKey: address,
-  // };
+  const provider = new ethers.providers.Web3Provider(windowObj.ethereum);
+  const signer = provider.getSigner();
+  const address = await signer.getAddress();
+  const messageRequested = (await lighthouse.getAuthMessage(address)).data
+    .message;
+  const signedMessage = await signer.signMessage(messageRequested);
+  return {
+    signedMessage: signedMessage,
+    publicKey: address,
+  };
 };
 
 const decryptCIDFile = async (cid: string) => {
