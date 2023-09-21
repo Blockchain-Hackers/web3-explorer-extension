@@ -30,7 +30,7 @@ try {
         </div>
       </div>
       <!-- empty state -->
-      <div v-if="uploads.length == 1" class="flex-grow flex">
+      <div v-if="uploads.length == 0" class="flex-grow flex">
         <div class="w-full h-full flex items-center justify-center">
           <div
             class="w-[300px] h-[300px] flex items-center justify-center flex-col"
