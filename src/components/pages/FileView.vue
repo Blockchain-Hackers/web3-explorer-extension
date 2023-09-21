@@ -55,12 +55,14 @@ const options = ref([
             @click="CopyText(cId)"
           >
             CID:
-            <strong :class="{ '!text-emerald-600': copied }" class="text-black truncate"
+            <strong
+              :class="{ '!text-emerald-600': copied }"
+              class="text-black truncate"
               >{{ cId }}</strong
             >
             <icon-copy class="inline ml-1 min-w-6" />
           </p>
-  
+
           <div>
             <template v-for="detail in details">
               <p
@@ -77,12 +79,9 @@ const options = ref([
         <h3>People file is shared with</h3>
         <div class="flex-grow relative mt-1">
           <div class="absolute inset-0 overflow-y-auto mb-3">
-            <div v-for="n in 6">
-              I don't know how to do this yet
-            </div>
+            <div v-for="n in 6">I don't know how to do this yet</div>
           </div>
         </div>
-
       </div>
 
       <div class="flex gap-2 justify-between text-sm">

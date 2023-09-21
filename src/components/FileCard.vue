@@ -32,7 +32,8 @@ const options = ref([
   <div class="w-full rounded-lg shadow border border-gray-200">
     <div
       @click="fileViewHandler(cId)"
-      class="bg-gray-100 h-20 rounded-lg overflow-hidden cursor-pointer">
+      class="bg-gray-100 h-20 rounded-lg overflow-hidden cursor-pointer"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 40 40"

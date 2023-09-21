@@ -94,7 +94,9 @@ const handleSubmit = async () => {
             network connection.
           </div>
 
-          <button class="block bg-emerald-600 w-full p-2 rounded-md text-white">{{ text.button }}</button>
+          <button class="block bg-emerald-600 w-full p-2 rounded-md text-white">
+            {{ text.button }}
+          </button>
         </form>
       </div>
     </section>

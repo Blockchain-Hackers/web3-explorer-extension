@@ -33,7 +33,7 @@ const uploadFileEncrypted = async (file) => {
     sig.publicKey,
     sig.signedMessage,
     null,
-    progressCallback
+    progressCallback,
   );
   console.log(response);
 };
