@@ -21,7 +21,7 @@ export const encryptionSignature = async () => {
   // };
 };
 
-const decryptCIDFile = async (cid: string) => {
+export const decryptCIDFile = async (cid: string) => {
   const { publicKey, signedMessage } = await encryptionSignature();
 
   const keyObject = await lighthouse.fetchEncryptionKey(
