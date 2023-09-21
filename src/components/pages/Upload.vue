@@ -45,7 +45,7 @@ const uploadFile = async (file) => {
       _apiKey.value,
       false,
       null,
-      progressCallback
+      progressCallback,
     );
     console.log(response);
   } catch (error) {
