@@ -4,7 +4,7 @@ import Nav from "~/components/Nav.vue";
 </script>
 
 <template>
-  <main class="w-[460px] h-[400px] flex bg-gray-50">
+  <main class="w-[480px] h-[400px] flex bg-gray-50">
     <Nav />
     <div class="p-2 overflow-y-auto text-gray-600 w-full">
       <Suspense>

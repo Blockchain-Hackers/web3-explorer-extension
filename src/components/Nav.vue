@@ -6,7 +6,7 @@ activeNav.value = navList[0];
 </script>
 
 <template>
-  <aside class="w-[120px] min-w-[120px] border-r border-black/10">
+  <aside class="w-[150px] min-w-[150px] border-r border-black/10">
     <div class="w-full mt-4 flex px-3">
       <Logo />
     </div>
