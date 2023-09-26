@@ -5,7 +5,6 @@ import { apiKey } from "./auth-store";
 
 export const encryptionSignature = async () => {
   const provider = new ethers.providers.JsonRpcProvider(rpcProvider);
-  console.log(await sha256(apiKey.value));
   const signer = new ethers.Wallet(await sha256(apiKey.value), provider);
   const address = await signer.getAddress();
   const messageRequested = (await lighthouse.getAuthMessage(address)).data
