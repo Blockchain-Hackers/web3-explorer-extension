@@ -9,7 +9,6 @@ let uploads = ref([]);
 try {
   let response = await lighthouse.getUploads(_apiKey.value);
   uploads.value = response.data.fileList;
-  console.log(response.data.fileList);
 } catch (error) {
   console.log(error);
 }

@@ -13,11 +13,11 @@ const CopyText = async (text: string) => {
 };
 
 const details = ref([
-  { name: "CID", value: "0xadsdsndjsidnnondinisndsbi" },
-  { name: "Type", value: "image" },
-  { name: "Date added", value: "12th Jan 2022" },
-  { name: "Status", value: "Active" },
-  { name: "File name", value: "If we can get this.png" },
+  { name: "CID", value: "" },
+  { name: "Type", value: "" },
+  { name: "Date added", value: "" },
+  { name: "Status", value: "" },
+  { name: "File name", value: "" },
 ]);
 
 const options = ref([
