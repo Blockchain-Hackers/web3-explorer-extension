@@ -29,6 +29,7 @@ onMounted(() => fetchUploads());
             :type="file.mimeType"
             src="https://encodeclub.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ff271b8ae-36f5-4425-af81-847a2314368f%2Fspeakers_09.png?id=20760a46-29b5-4944-b851-a0b21976f7fe&table=block&spaceId=d0c8094a-e610-4814-9977-ce61e347ef5a&width=690&userId=&cache=v2"
             class=""
+            :encrypted="file.encryption"
           />
         </div>
       </div>
