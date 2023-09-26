@@ -6,12 +6,15 @@ import lighthouse from "@lighthouse-web3/sdk";
 import { apiKey as _apiKey } from "~/logic/auth-store";
 
 let uploads = ref([]);
-try {
-  let response = await lighthouse.getUploads(_apiKey.value);
-  uploads.value = response.data.fileList;
-} catch (error) {
-  console.log(error);
-}
+const fetchUploads = async () => {
+  try {
+    let response = await lighthouse.getUploads(_apiKey.value);
+    uploads.value = response.data.fileList;
+  } catch (error) {
+    console.log(error);
+  }
+};
+onMounted(() => fetchUploads());
 </script>
 
 <template>
