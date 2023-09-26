@@ -1,24 +1,20 @@
 import { ethers } from "ethers";
 import lighthouse from "@lighthouse-web3/sdk";
+import sha256, { rpcProvider } from "./sha256";
+import { apiKey } from "./auth-store";
 
 export const encryptionSignature = async () => {
-  // let currentBrowser = typeof chrome !== undefined ? chrome : browser;
-  // const tabs = await currentBrowser.tabs.query({
-  //   active: true,
-  //   currentWindow: true,
-  // });
-  // const activeTab = tabs[0];
-  // const windowObj = activeTab.window;
-  // const provider = new ethers.providers.Web3Provider(windowObj.ethereum);
-  // const signer = provider.getSigner();
-  // const address = await signer.getAddress();
-  // const messageRequested = (await lighthouse.getAuthMessage(address)).data
-  //   .message;
-  // const signedMessage = await signer.signMessage(messageRequested);
-  // return {
-  //   signedMessage: signedMessage,
-  //   publicKey: address,
-  // };
+  const provider = new ethers.providers.JsonRpcProvider(rpcProvider);
+  console.log(await sha256(apiKey.value));
+  const signer = new ethers.Wallet(await sha256(apiKey.value), provider);
+  const address = await signer.getAddress();
+  const messageRequested = (await lighthouse.getAuthMessage(address)).data
+    .message;
+  const signedMessage = await signer.signMessage(messageRequested);
+  return {
+    signedMessage: signedMessage,
+    publicKey: address,
+  };
 };
 
 export const decryptCIDFile = async (cid: string) => {
@@ -27,14 +23,14 @@ export const decryptCIDFile = async (cid: string) => {
   const keyObject = await lighthouse.fetchEncryptionKey(
     cid,
     publicKey,
-    signedMessage,
+    signedMessage
   );
 
   const fileType = "image/jpeg";
   const decrypted = await lighthouse.decryptFile(
     cid,
     keyObject.data.key as string,
-    fileType,
+    fileType
   );
 
   const url = URL.createObjectURL(decrypted);
