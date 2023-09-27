@@ -25,10 +25,10 @@ const handleFileSelection = async (e: any) => {
   let countOfImported = 0
   let countOfNotImported = 0
 
+  const localStoreFiles = typeof localStore.value === 'string' ? JSON.parse(localStore.value) : localStore.value
   res.map((file: FilecoinFile) => {
     if(file?.cid) {
       // check if cid is already in localStore, if not, add it
-      const localStoreFiles = localStore.value
       const fileExists = localStoreFiles.find((f: FilecoinFile) => f.cid === file.cid)
       if(!fileExists) {
         localStoreFiles.push(file)

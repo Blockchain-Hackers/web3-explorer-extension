@@ -6,6 +6,11 @@ import lighthouse from "@lighthouse-web3/sdk";
 import { apiKey as _apiKey } from "~/logic/auth-store";
 import { localStore } from "~/logic/handle-files";
 
+const parsedLocalStore = computed(() => {
+  return typeof localStore.value === "string"
+    ? JSON.parse(localStore.value)
+    : localStore.value;
+})
 let uploads = ref([]);
 const fetchUploads = async () => {
   try {
@@ -26,7 +31,7 @@ onMounted(() => fetchUploads());
       <div class="flex-grow mt-3 overflow-y-auto">
         <div class="grid grid-cols-2 gap-2 w-full">
           <FileCard
-            v-for="(file, i) in uploads"
+            v-for="(file, i) in parsedLocalStore"
             :cId="file.cid"
             :type="file.mimeType"
             :userFile="file"
@@ -37,7 +42,7 @@ onMounted(() => fetchUploads());
         </div>
       </div>
       <!-- empty state -->
-      <div v-if="uploads.length == 0" class="flex-grow flex">
+      <div v-if="parsedLocalStore.length == 0" class="flex-grow flex">
         <div class="w-full h-full flex items-center justify-center">
           <div
             class="w-[300px] h-[300px] flex items-center justify-center flex-col"
