@@ -35,3 +35,46 @@ export const decryptCIDFile = async (cid: string) => {
   const url = URL.createObjectURL(decrypted);
   return url;
 };
+
+export const shareCIDFile = async (shareeAddress: string, cid: string) => {
+  const { publicKey, signedMessage } = await encryptionSignature();
+  console.log({ shareeAddress, cid });
+  const res = await lighthouse.shareFile(
+    publicKey,
+    [shareeAddress],
+    cid,
+    signedMessage
+  );
+
+  console.log(res);
+
+  return res;
+};
+export const applyAccessConditions = async (cid: string) => {
+  const conditions = [
+    {
+      id: 1,
+      chain: "Optimism",
+      method: "getBlockNumber",
+      standardContractType: "",
+      returnValueTest: {
+        comparator: ">=",
+        value: "13349",
+      },
+    },
+  ];
+  const aggregator = "([1])";
+  const { publicKey, signedMessage } = await encryptionSignature();
+
+  const response = await lighthouse.applyAccessCondition(
+    publicKey,
+    cid,
+    signedMessage,
+    conditions,
+    aggregator
+  );
+
+  console.log(response);
+
+  return response;
+};
