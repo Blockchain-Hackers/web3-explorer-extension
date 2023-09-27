@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import IconRight from "~icons/carbon/chevron-right";
 import { export2JSON, readFile, localStore } from "~/logic/handle-files";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 interface FilecoinFile {
   cid: string;
@@ -16,20 +18,39 @@ interface FilecoinFile {
   txHash: string;
 }
 
-const handleFileSelection = async (file: any) => {
+const resetInput = ref(false)
+const handleFileSelection = async (e: any) => {
+  const file = e.target?.files[0]
   const res = await readFile(file)
+  let countOfImported = 0
+  let countOfNotImported = 0
+
   res.map((file: FilecoinFile) => {
     if(file?.cid) {
-      console.log({ file })
       // check if cid is already in localStore, if not, add it
-      const localStoreFiles = JSON.parse(String(localStore.value))
+      const localStoreFiles = localStore.value
       const fileExists = localStoreFiles.find((f: FilecoinFile) => f.cid === file.cid)
       if(!fileExists) {
         localStoreFiles.push(file)
         localStore.value = localStoreFiles
+        countOfImported++
+      } else {
+        countOfNotImported++
       }
+    } else {
+      countOfNotImported++
     }
   })
+
+  if(countOfImported > 0) {
+    toast.success(`${countOfImported} files imported`)
+  } else if(countOfNotImported > 0) {
+    toast.error(`${countOfNotImported} files not imported`)
+  }
+
+  // reset file input
+  resetInput.value = true
+  setTimeout(()=>resetInput.value = false)
 }
 
 const handleFileExport = () => export2JSON(JSON.parse(String(localStore.value)))
@@ -50,9 +71,10 @@ const handleFileExport = () => export2JSON(JSON.parse(String(localStore.value)))
         >
           Import files
           <input
+            v-if="!resetInput"
             type="file"
             accept=".json"
-            @change="(e) => handleFileSelection(e.target?.files[0])"
+            @change="handleFileSelection"
             class="appearance-none hidden"
           />
         </label>
