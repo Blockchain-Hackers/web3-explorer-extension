@@ -2,8 +2,11 @@
 import IconCopy from "~icons/mdi/content-copy";
 import Link from "~/components/Link.vue";
 import { cId, userFile } from "~/logic/file-view-handler";
+import IconLoading from "~icons/mdi/loading";
 import lighthouse from "@lighthouse-web3/sdk";
 import { decryptCIDFile, shareCIDFile } from "~/logic/useCIDEncryption";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 const fileDetails = JSON.parse(userFile.value);
 const copied = ref(false);
 const shareeAddress = ref("");
@@ -14,7 +17,7 @@ const CopyText = async (text: string) => {
     setTimeout(() => (copied.value = false), 1000);
   } catch (err) {}
 };
-
+const isSharingLoading = ref(false);
 const details = ref([
   { name: "CID", value: fileDetails.cid },
   { name: "Type", value: fileDetails.mimeType },
@@ -40,10 +43,15 @@ const options = ref([
 ]);
 
 const shareFile = async () => {
-  const resp = await shareCIDFile(shareeAddress.value, cId.value);
-  console.log(resp);
-
-  // if storage apikey is set, remove; else set
+  isSharingLoading.value = true;
+  try {
+    await shareCIDFile(shareeAddress.value, cId.value);
+    toast.success("File uploaded");
+  } catch (error: any) {
+    toast.error(error.message);
+  } finally {
+    isSharingLoading.value = false;
+  }
 };
 
 const accessConditions = async (cid: any) => {
@@ -58,7 +66,6 @@ onMounted(() => accessConditions(fileDetails.cid));
 
 <template>
   <div class="w-full h-full flex flex-col">
-    
     <div class="pt-2 flex-grow flex flex-col">
       <div class="flex-grow flex flex-col overflow-y-auto relative">
         <div class="absolute inset-0 overflow-y-auto">
@@ -93,7 +100,7 @@ onMounted(() => accessConditions(fileDetails.cid));
               >
               <icon-copy class="inline ml-1 min-w-6" />
             </p>
-  
+
             <div>
               <template v-for="detail in details">
                 <p
@@ -140,7 +147,7 @@ onMounted(() => accessConditions(fileDetails.cid));
               </template>
             </div>
           </div>
-  
+
           <form @submit.prevent="shareFile" class="w-full flex gap-2 mt-2">
             <label class="relative block flex-1">
               <input
@@ -151,12 +158,18 @@ onMounted(() => accessConditions(fileDetails.cid));
                 class="w-full bg-gray-100 p-4 py-2 rounded-md outline-none ring ring-inset ring-emerald-700 text-base"
               />
             </label>
-  
-            <button class="block bg-emerald-600 p-2 px-4 rounded-md text-white">
-              Share
+
+            <button
+              class="block bg-emerald-600 p-2 px-4 rounded-md text-white"
+              style="display: flex; justify-content: center"
+            >
+              <span v-if="isSharingLoading" style="text-align: center">
+                <IconLoading class="animate-spin check" />
+              </span>
+              <span v-else> Share </span>
             </button>
           </form>
-  
+
           <h3 class="my-3">Addresses file is shared with</h3>
           <div class="flex-grow relative mt-1">
             <div class="overflow-y-auto mb-3">
