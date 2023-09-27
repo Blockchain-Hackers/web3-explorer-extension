@@ -112,6 +112,22 @@ const options = ref([
           </div>
         </div>
 
+        <form @submit.prevent="" class="w-full flex gap-2 mt-2">
+          <label class="relative block flex-1">
+            <input
+              v-model="cId"
+              type="text"
+              placeholder="Enter CID"
+              required
+              class="w-full bg-gray-100 p-4 py-2 rounded-md outline-none ring ring-inset ring-emerald-700 text-base"
+            />
+          </label>
+
+          <button class="block bg-emerald-600 p-2 px-4 rounded-md text-white">
+            Share
+          </button>
+        </form>
+
         <h3>People file is shared with</h3>
         <div class="flex-grow relative mt-1">
           <div class="absolute inset-0 overflow-y-auto mb-3">
