@@ -26,11 +26,11 @@ onMounted(() => fetchUploads());
 // once records are fetched, check local data and update if cid is not present
 watch(uploads, (value: FilecoinFile[])=>{
   const data:FilecoinFile[] = []
-  parsedLocalStore.value.forEach((localFile: FilecoinFile)=>{
-    let found = value.find((file: FilecoinFile)=>file.cid === localFile.cid);
+  value.map((file: FilecoinFile)=>{
+    let found = parsedLocalStore.value.find((localFile: FilecoinFile)=>file.cid === localFile.cid);
     if(!found){
-      console.log("not found", localFile);
-      data.push(localFile);
+      console.log("not found", file);
+      data.push(file);
     }
   })
   if(data.length > 0){
@@ -46,12 +46,11 @@ watch(uploads, (value: FilecoinFile[])=>{
       <div class="flex-grow mt-3 overflow-y-auto">
         <div class="grid grid-cols-2 gap-2 w-full">
           <FileCard
-            v-for="(file, i) in parsedLocalStore"
+            v-for="(file, i) in parsedLocalStore" :key="i"
             :cId="file.cid"
             :type="file.mimeType"
             :userFile="file"
             src="https://encodeclub.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ff271b8ae-36f5-4425-af81-847a2314368f%2Fspeakers_09.png?id=20760a46-29b5-4944-b851-a0b21976f7fe&table=block&spaceId=d0c8094a-e610-4814-9977-ce61e347ef5a&width=690&userId=&cache=v2"
-            class=""
             :encrypted="file.encryption"
           />
         </div>
