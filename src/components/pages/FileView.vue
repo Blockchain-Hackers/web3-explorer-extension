@@ -185,12 +185,14 @@ onMounted(() => accessConditions(fileDetails.cid));
             </button>
           </form>
 
-          <h3 class="my-3">Addresses file is shared with</h3>
-          <div class="flex-grow relative mt-1">
-            <div class="overflow-y-auto mb-3">
-              <div v-for="address in sharedTo">{{ address }}</div>
-            </div>
-          </div>
+          <span v-if="sharedTo.length !== 0">
+            <h3 class="my-3">Addresses file is shared with</h3>
+            <div class="flex-grow relative mt-1">
+              <div class="overflow-y-auto mb-3">
+                <div v-for="address in sharedTo">{{ address }}</div>
+              </div>
+            </div></span
+          >
         </div>
       </div>
 
