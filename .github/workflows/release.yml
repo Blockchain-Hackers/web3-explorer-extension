@@ -25,7 +25,8 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: extension/*  # Specify the files to include in the release
-        tag_name: ${{ github.ref }}
+        # use commit hash as tag name
+        tag_name: ${{ github.sha }}
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
