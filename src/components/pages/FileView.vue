@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import IconCopy from "~icons/mdi/content-copy";
 import Link from "~/components/Link.vue";
-import { cId } from "~/logic/file-view-handler";
-
+import { cId, userFile } from "~/logic/file-view-handler";
+const fileDetails = JSON.parse(userFile.value);
 const copied = ref(false);
 const CopyText = async (text: string) => {
   try {
@@ -13,11 +13,13 @@ const CopyText = async (text: string) => {
 };
 
 const details = ref([
-  { name: "CID", value: "" },
-  { name: "Type", value: "" },
-  { name: "Date added", value: "" },
-  { name: "Status", value: "" },
-  { name: "File name", value: "" },
+  { name: "CID", value: fileDetails.cid },
+  { name: "Type", value: fileDetails.mimeType },
+  { name: "Date added", value: new Date(fileDetails.createdAt).toDateString() },
+  { name: "Status", value: fileDetails.status },
+  { name: "File name", value: fileDetails.fileName },
+  { name: "File size(bytes)", value: fileDetails.fileSizeInBytes },
+  { name: "Encryption", value: fileDetails.encryption },
 ]);
 
 const options = ref([
@@ -70,7 +72,41 @@ const options = ref([
                 class="flex justify-between border-b last-of-type:border-b-none py-1"
               >
                 {{ detail.name }}:
-                <strong class="text-black ml-1">{{ detail.value }}</strong>
+                <strong class="text-black ml-1" style="display: flex">
+                  {{ detail.value }}&nbsp;
+                  <span v-if="detail.name === 'Encryption'">
+                    <svg
+                      v-if="detail.value"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-4 h-4"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+                      />
+                    </svg>
+                    <svg
+                      v-else
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-4 h-4"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+                      />
+                    </svg>
+                  </span>
+                </strong>
               </p>
             </template>
           </div>
@@ -85,7 +121,11 @@ const options = ref([
       </div>
 
       <div class="flex gap-2 justify-between text-sm">
-        <Link v-for="option in options" class="w-full text-center">
+        <Link
+          v-for="option in options"
+          class="w-full text-center"
+          :href="`https://ipfs.io/ipfs/${cId}`"
+        >
           {{ option.name }}
         </Link>
       </div>

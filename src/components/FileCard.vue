@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import IconMenu from "~icons/mdi/dots-vertical";
 import { vOnClickOutside } from "@vueuse/components";
-import { fileViewHandler } from "~/logic/file-view-handler";
+import { fileViewHandler, userFile } from "~/logic/file-view-handler";
 
 interface Props {
   src: string;
   type: string;
   cId: string;
+  userFile: object;
   encrypted: boolean;
 }
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const copied = ref(false);
 const CopyText = async (text: string) => {
@@ -27,12 +28,14 @@ const options = ref([
   { name: "Renew", path: "/renew" },
   { name: "Repair", path: "/repair" },
 ]);
+
+
 </script>
 
 <template>
   <div class="w-full rounded-lg shadow border border-gray-200">
     <div
-      @click="fileViewHandler(cId)"
+      @click="fileViewHandler(cId, props.userFile)"
       class="bg-gray-100 h-20 rounded-lg overflow-hidden cursor-pointer"
     >
       <svg
