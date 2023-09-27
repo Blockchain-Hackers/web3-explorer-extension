@@ -53,7 +53,7 @@ const handleFileSelection = async (e: any) => {
   setTimeout(()=>resetInput.value = false)
 }
 
-const handleFileExport = () => export2JSON(JSON.parse(String(localStore.value)))
+const handleFileExport = () => export2JSON(typeof localStore.value === 'string' ? JSON.parse(localStore.value) : localStore.value)
 </script>
 
 <template>
