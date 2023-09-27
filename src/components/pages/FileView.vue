@@ -23,6 +23,8 @@ const CopyText = async (text: string) => {
   } catch (err) {}
 };
 const isSharingLoading = ref(false);
+const isRenewLoading = ref(false);
+const isRepairLoading = ref(false);
 const details = ref([
   { name: "CID", value: fileDetails.cid },
   { name: "Type", value: fileDetails.mimeType },
@@ -72,7 +74,15 @@ const DownloadOrView = async () => {
 };
 
 const register_job = async (operation: string) => {
+  isRenewLoading.value = false;
+  isRepairLoading.value = false;
   try {
+    console.log("Hello");
+    if (operation === "Renew") {
+      isRenewLoading.value = true;
+    } else {
+      isRepairLoading.value = true;
+    }
     const formData = new FormData();
     const requestReceivedTime = new Date();
     const endDate = requestReceivedTime.setMonth(
@@ -92,6 +102,9 @@ const register_job = async (operation: string) => {
     toast.success(`File ${operation}`);
   } catch (error: any) {
     toast.error(error.message);
+  } finally {
+    isRenewLoading.value = false;
+    isRepairLoading.value = false;
   }
 };
 
@@ -226,12 +239,26 @@ onMounted(() => accessConditions(fileDetails.cid));
         <Link class="w-full text-center" @click="DownloadOrView">
           {{ fileDetails.encryption ? "Download" : "Open Url" }}
         </Link>
-        <Link class="w-full text-center" @click="register_job('Renew')">
-          Renew
+        <Link
+          class="w-full text-center"
+          @click="register_job('Renew')"
+          style="display: flex; justify-content: center"
+        >
+          <span v-if="isRenewLoading" style="text-align: center">
+            <IconLoading class="animate-spin check" />
+          </span>
+          <span v-else> Renew </span>
         </Link>
 
-        <Link class="w-full text-center" @click="register_job('Repair')">
-          Repair
+        <Link
+          class="w-full text-center"
+          @click="register_job('Repair')"
+          style="display: flex; justify-content: center"
+        >
+          <span v-if="isRepairLoading" style="text-align: center">
+            <IconLoading class="animate-spin check" />
+          </span>
+          <span v-else> Repair </span>
         </Link>
       </div>
     </div>
