@@ -11,4 +11,4 @@ export default async function sha256(message: string) {
   return hashHex;
 }
 
-export const rpcProvider = "https://rpc.ankr.com/filecoin	";
+export const rpcProvider = "https://rpc.ankr.com/filecoin";
