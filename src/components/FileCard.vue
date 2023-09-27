@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import IconMenu from "~icons/mdi/dots-vertical";
 import { vOnClickOutside } from "@vueuse/components";
-import { fileViewHandler, userFile } from "~/logic/file-view-handler";
+import { fileViewHandler } from "~/logic/file-view-handler";
+import { FilecoinFile } from "~/types";
 
 interface Props {
   src: string;
   type: string;
   cId: string;
-  userFile: object;
+  userFile: FilecoinFile;
   encrypted: boolean;
 }
 const props = defineProps<Props>();
@@ -19,6 +20,10 @@ const CopyText = async (text: string) => {
     copied.value = true;
     setTimeout(() => (copied.value = false), 1000);
   } catch (err) {}
+};
+const dateCreated = (date: number) => {
+  const d = new Date(date);
+  return `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`;
 };
 
 const showMenu = ref(false);
@@ -36,12 +41,13 @@ const options = ref([
   <div class="w-full rounded-lg shadow border border-gray-200">
     <div
       @click="fileViewHandler(cId, props.userFile)"
-      class="bg-gray-100 h-20 rounded-lg overflow-hidden cursor-pointer"
+      class="bg-gray-100 h-20 rounded-lg overflow-hidden cursor-pointer flex items-center justify-center relative"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 40 40"
         lass="w-full h-full object-cover"
+        class="place-self-start"
       >
         <path
           fill="#fff"
@@ -62,20 +68,9 @@ const options = ref([
           />
         </g>
       </svg>
-      <!-- <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-full h-full object-cover"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"
-        />
-      </svg> -->
+      <span class="absolute bg-white rounded-md border-2 px-1 border-slate-500">
+        {{ dateCreated(userFile.createdAt) }}
+      </span>
     </div>
     <div class="p-2 relative">
       <p
