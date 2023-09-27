@@ -27,13 +27,13 @@ const dateCreated = computed(()=>(date: number | null) => {
   return `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`;
 })
 
-const showMenu = ref(false);
+// const showMenu = ref(false);
 
-const options = ref([
-  { name: "Open Url", path: "/open" },
-  { name: "Renew", path: "/renew" },
-  { name: "Repair", path: "/repair" },
-]);
+// const options = ref([
+//   { name: "Open Url", path: "/open" },
+//   { name: "Renew", path: "/renew" },
+//   { name: "Repair", path: "/repair" },
+// ]);
 
 
 </script>
@@ -120,7 +120,7 @@ const options = ref([
         </svg>
       </div>
 
-      <button
+      <!-- <button
         @click="() => (showMenu = true)"
         class="absolute right-1 top-2 bg-white py-1 px-0"
       >
@@ -130,7 +130,7 @@ const options = ref([
       <div
         v-if="showMenu"
         v-on-click-outside="() => (showMenu = false)"
-        class="absolute right-2 top-2 bg-gray-800 text-white shadow p-1 rounded-md"
+        class="absolute right-2 top-2 bg-gray-800 text-white shadow p-1 rounded-md z-10"
       >
         <a
           v-for="(opt, i) in options"
@@ -140,7 +140,7 @@ const options = ref([
         >
           {{ opt.name }}
         </a>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
