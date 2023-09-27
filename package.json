@@ -1,6 +1,6 @@
 {
   "name": "filecoin-file-explorer",
-  "displayName": "Filecoin File Explorer",
+  "displayName": "Filecoin Lighthouse File Explorer",
   "version": "0.0.1",
   "private": true,
   "packageManager": "pnpm@8.3.1",

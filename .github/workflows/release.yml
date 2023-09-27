@@ -1,0 +1,32 @@
+name: Build and Release
+
+on:
+    workflow_dispatch: # Manually trigger the workflow from the Actions tab
+#   push:
+#     branches:
+#       - main  # Change this to your main branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Build project
+      run: yarn build
+
+    - name: Create release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: extension/*  # Specify the files to include in the release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Release URL
+      run: echo "Release URL: ${{ steps.create_release.outputs.upload_url }}"
