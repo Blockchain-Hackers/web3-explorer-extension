@@ -5,7 +5,11 @@ import { cId, userFile } from "~/logic/file-view-handler";
 import IconLoading from "~icons/mdi/loading";
 import lighthouse from "@lighthouse-web3/sdk";
 import axios from "axios";
-import { decryptCIDFile, shareCIDFile } from "~/logic/useCIDEncryption";
+import {
+  decryptCIDFile,
+  imageTypeRef,
+  shareCIDFile,
+} from "~/logic/useCIDEncryption";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 const fileDetails = JSON.parse(userFile.value);
@@ -65,8 +69,13 @@ const shareFile = async () => {
 const DownloadOrView = async () => {
   if (fileDetails.encryption) {
     const resp = await decryptCIDFile(cId.value);
-    // create blob from buffer
-    const blob = new Blob([resp], { type: fileDetails.mimeType });
+
+    console.log(imageTypeRef.value);
+
+    const blob = new Blob([resp], {
+      type: imageTypeRef.value,
+    });
+
     fileDownload(blob, fileDetails.fileName, fileDetails.mimeType);
   } else {
     window.open(FileUrl, "_blank");

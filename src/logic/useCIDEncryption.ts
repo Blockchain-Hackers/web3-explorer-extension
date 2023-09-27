@@ -5,7 +5,9 @@ import axios from "axios";
 import { ethers } from "ethers";
 import lighthouse from "@lighthouse-web3/sdk";
 
-const helperURL = "https://extension-backend.onrender.com/decrypt-file"
+export const imageTypeRef = ref("");
+
+const helperURL = "https://extension-backend.onrender.com/decrypt-file";
 export const encryptionSignature = async () => {
   const provider = new ethers.providers.JsonRpcProvider(rpcProvider);
   const signer = new ethers.Wallet(await sha256(apiKey.value), provider);
@@ -31,6 +33,7 @@ export const decryptCIDFile = async (cid: string) => {
         cid: cid,
       },
       {
+        responseType: "arraybuffer",
         headers: {
           "Accept-Encoding": "gzip, deflate, br",
           Accept: "*/*",
@@ -39,6 +42,7 @@ export const decryptCIDFile = async (cid: string) => {
     );
 
     decrypted = response.data;
+    imageTypeRef.value = response.headers["content-type"];
     return decrypted;
   } catch (error) {
     // display toast
@@ -87,5 +91,3 @@ export const applyAccessConditions = async (cid: string) => {
 
   return response;
 };
-
-
