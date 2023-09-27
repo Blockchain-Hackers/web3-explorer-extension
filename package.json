@@ -82,6 +82,7 @@
     "@vueuse/components": "^10.4.1",
     "axios": "^1.5.1",
     "ethers": "5.7.2",
+    "js-file-download": "^0.4.12",
     "vue3-toastify": "^0.1.13"
   }
 }
