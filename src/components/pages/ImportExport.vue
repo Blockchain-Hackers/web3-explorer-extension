@@ -2,23 +2,34 @@
 import IconRight from "~icons/carbon/chevron-right";
 import { export2JSON, readFile, localStore } from "~/logic/handle-files";
 
-// interface FilecoinFile {
-//   cid: string;
-//   createdAt: number;
-//   encryption: boolean;
-//   fileName: string;
-//   fileSizeInBytes: string;
-//   id: string;
-//   lastUpdate: number;
-//   mimeType: string;
-//   publicKey: string;
-//   status: string;
-//   txHash: string;
-// }
+interface FilecoinFile {
+  cid: string;
+  createdAt: number;
+  encryption: boolean;
+  fileName: string;
+  fileSizeInBytes: string;
+  id: string;
+  lastUpdate: number;
+  mimeType: string;
+  publicKey: string;
+  status: string;
+  txHash: string;
+}
 
 const handleFileSelection = async (file: any) => {
   const res = await readFile(file)
-  console.log({ res })
+  res.map((file: FilecoinFile) => {
+    if(file?.cid) {
+      console.log({ file })
+      // check if cid is already in localStore, if not, add it
+      const localStoreFiles = JSON.parse(String(localStore.value))
+      const fileExists = localStoreFiles.find((f: FilecoinFile) => f.cid === file.cid)
+      if(!fileExists) {
+        localStoreFiles.push(file)
+        localStore.value = localStoreFiles
+      }
+    }
+  })
 }
 
 const handleFileExport = () => export2JSON(JSON.parse(String(localStore.value)))
