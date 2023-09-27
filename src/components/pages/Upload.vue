@@ -5,7 +5,7 @@ import { ethers } from "ethers";
 import lighthouse from "@lighthouse-web3/sdk";
 import { encryptionSignature } from "~/logic/useCIDEncryption";
 import { apiKey as _apiKey } from "~/logic/auth-store";
-
+import axios from "axios";
 const progressCallback = (progressData) => {
   let percentageDone =
     100 - (progressData?.total / progressData?.uploaded)?.toFixed(2);
@@ -26,17 +26,31 @@ const handleSubmit = async () => {
 };
 
 const uploadFileEncrypted = async (file) => {
-  const sig = await encryptionSignature();
-  const response = await lighthouse.uploadEncrypted(
-    [file],
-    _apiKey.value,
-    sig.publicKey,
-    sig.signedMessage,
-    null,
-    progressCallback
-  );
-  console.log(response);
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("apiKey", _apiKey.value);
+
+  const url = "https://extension-backend.onrender.com/upload";
+
+  try {
+    const response = await axios.post(url, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Set the content type
+      },
+    });
+
+    console.log("Response:", response.data);
+    // Handle the response as needed
+  } catch (error) {
+    console.error("Error:", error);
+    // Handle errors as needed
+  }
 };
+
+//   // Attach the form submission handler
+//   const uploadForm = document.getElementById('upload-form');
+//   uploadForm.addEventListener('submit', handleFormSubmit);
+// }
 
 const uploadFile = async (file) => {
   try {
@@ -104,3 +118,37 @@ const uploadFile = async (file) => {
     </section>
   </div>
 </template>
+
+<!-- <script>
+  // Function to handle form submission
+  async function handleFormSubmit(event) {
+    event.preventDefault();
+
+    const fileInput = document.getElementById('file-input');
+    const apiKeyInput = document.getElementById('api-key-input');
+
+    const formData = new FormData();
+    formData.append('file', fileInput.files[0]);
+    formData.append('apiKey', apiKeyInput.value);
+
+    const url = 'https://extension-backend.onrender.com/upload';
+
+    try {
+      const response = await axios.post(url, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Set the content type
+        },
+      });
+
+      console.log('Response:', response.data);
+      // Handle the response as needed
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle errors as needed
+    }
+  }
+
+  // Attach the form submission handler
+  const uploadForm = document.getElementById('upload-form');
+  uploadForm.addEventListener('submit', handleFormSubmit);
+</script> -->
