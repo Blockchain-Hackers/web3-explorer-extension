@@ -70,8 +70,6 @@ const DownloadOrView = async () => {
   if (fileDetails.encryption) {
     const resp = await decryptCIDFile(cId.value);
 
-    console.log(imageTypeRef.value);
-
     const blob = new Blob([resp], {
       type: imageTypeRef.value,
     });
