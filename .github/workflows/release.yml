@@ -2,9 +2,6 @@ name: Build and Release
 
 on:
     workflow_dispatch: # Manually trigger the workflow from the Actions tab
-#   push:
-#     branches:
-#       - main  # Change this to your main branch name
 
 jobs:
   build:
@@ -20,11 +17,18 @@ jobs:
     - name: Build project
       run: yarn build
 
+    - name: CD into build directory
+      run: cd extension
+
+    - name: Zip extension
+      run: zip -r extension.zip .
+
     - name: Create release
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
-        files: extension/*  # Specify the files to include in the release
+        files:  |
+          extension.zip
         # use time stamp as tag
         tag_name: ${{ github.run_number }}
       env:
