@@ -28,12 +28,12 @@ const handleSubmit = async () => {
 const uploadFileEncrypted = async (file) => {
   const sig = await encryptionSignature();
   const response = await lighthouse.uploadEncrypted(
-    file,
+    [file],
     _apiKey.value,
     sig.publicKey,
     sig.signedMessage,
     null,
-    progressCallback,
+    progressCallback
   );
   console.log(response);
 };
@@ -41,11 +41,11 @@ const uploadFileEncrypted = async (file) => {
 const uploadFile = async (file) => {
   try {
     const response = await lighthouse.upload(
-      file,
+      [file],
       _apiKey.value,
       false,
       null,
-      progressCallback,
+      progressCallback
     );
     console.log(response);
   } catch (error) {
