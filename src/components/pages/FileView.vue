@@ -33,7 +33,7 @@ let sharedTo = ref([]);
 let FileUrl = `https://gateway.lighthouse.storage/ipfs/${cId}`;
 
 if (fileDetails.encryption) {
-  decryptCIDFile(cId.value).then((e) => console.log(e));
+  // decryptCIDFile(cId.value).then((e) => console.log(e));
 }
 
 const options = ref([
