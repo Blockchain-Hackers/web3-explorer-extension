@@ -46,7 +46,7 @@ const shareFile = async () => {
   isSharingLoading.value = true;
   try {
     await shareCIDFile(shareeAddress.value, cId.value);
-    toast.success("File uploaded");
+    toast.success("File shared");
   } catch (error: any) {
     toast.error(error.message);
   } finally {
