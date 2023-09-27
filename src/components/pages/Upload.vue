@@ -72,7 +72,7 @@ const uploadFile = async (file) => {
   <div class="h-full">
     <section class="h-full w-full flex flex-col">
       <h2 class="font-bold">
-        <icon-right class="inline-block" /> Upload Files ss
+        <icon-right class="inline-block" /> Upload Files
       </h2>
       <p class="text-gray-500 font-medium pl-4">Upload a File</p>
 
