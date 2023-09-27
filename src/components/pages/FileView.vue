@@ -2,6 +2,7 @@
 import IconCopy from "~icons/mdi/content-copy";
 import Link from "~/components/Link.vue";
 import { cId, userFile } from "~/logic/file-view-handler";
+import lighthouse from "@lighthouse-web3/sdk";
 import { decryptCIDFile, shareCIDFile } from "~/logic/useCIDEncryption";
 const fileDetails = JSON.parse(userFile.value);
 const copied = ref(false);
@@ -24,6 +25,8 @@ const details = ref([
   { name: "Encryption", value: fileDetails.encryption },
 ]);
 
+let sharedTo = ref([]);
+
 let FileUrl = `https://gateway.lighthouse.storage/ipfs/${cId}`;
 
 if (fileDetails.encryption) {
@@ -42,6 +45,15 @@ const shareFile = async () => {
 
   // if storage apikey is set, remove; else set
 };
+
+const accessConditions = async (cid: any) => {
+  const response = await lighthouse.getAccessConditions(cid);
+
+  // Print the access conditions
+  sharedTo.value = response.data.sharedTo;
+  console.log(response.data.sharedTo);
+};
+onMounted(() => accessConditions(fileDetails.cid));
 </script>
 
 <template>
@@ -143,10 +155,10 @@ const shareFile = async () => {
           </button>
         </form>
 
-        <h3>People file is shared with</h3>
+        <h3 class="my-3">Addresses file is shared with</h3>
         <div class="flex-grow relative mt-1">
-          <div class="absolute inset-0 overflow-y-auto mb-3">
-            <div v-for="_ in 6">I don't know how to do this yet</div>
+          <div class="overflow-y-auto mb-3">
+            <div v-for="address in sharedTo">{{ address }}</div>
           </div>
         </div>
       </div>
