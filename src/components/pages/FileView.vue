@@ -28,6 +28,7 @@ const CopyText = async (text: string) => {
 };
 const isSharingLoading = ref(false);
 const isRenewLoading = ref(false);
+const isDownloading = ref(false);
 const isRepairLoading = ref(false);
 const details = ref([
   { name: "CID", value: fileDetails.cid },
@@ -67,16 +68,22 @@ const shareFile = async () => {
 };
 
 const DownloadOrView = async () => {
-  if (fileDetails.encryption) {
-    const resp = await decryptCIDFile(cId.value);
+  isDownloading.value = true;
+  try {
+    if (fileDetails.encryption) {
+      const resp = await decryptCIDFile(cId.value);
 
-    const blob = new Blob([resp], {
-      type: imageTypeRef.value,
-    });
+      const blob = new Blob([resp], {
+        type: imageTypeRef.value,
+      });
 
-    fileDownload(blob, fileDetails.fileName, fileDetails.mimeType);
-  } else {
-    window.open(FileUrl, "_blank");
+      fileDownload(blob, fileDetails.fileName, fileDetails.mimeType);
+    } else {
+      window.open(FileUrl, "_blank");
+    }
+  } catch (error) {
+  } finally {
+    isDownloading.value = false;
   }
 };
 
@@ -242,7 +249,12 @@ onMounted(() => accessConditions(fileDetails.cid));
 
       <div class="flex gap-2 justify-between text-sm pt-2">
         <Link class="w-full text-center" @click="DownloadOrView">
-          {{ fileDetails.encryption ? "Download" : "Open Url" }}
+          <span v-if="isDownloading" style="text-align: center">
+            <IconLoading class="animate-spin check" />
+          </span>
+          <span v-else>
+            {{ fileDetails.encryption ? "Download" : "Open Url" }}
+          </span>
         </Link>
         <Link
           class="w-full text-center"
