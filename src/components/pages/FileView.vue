@@ -195,6 +195,9 @@ onMounted(() => accessConditions(fileDetails.cid));
       </div>
 
       <div class="flex gap-2 justify-between text-sm pt-2">
+        <Link class="w-full text-center" @click="DownloadOrView">
+          {{ fileDetails.encryption ? "Download" : "Open Url" }}
+        </Link>
         <Link
           class="w-full text-center"
           :href="
