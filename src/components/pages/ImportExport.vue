@@ -1,42 +1,27 @@
 <script setup lang="ts">
 import IconRight from "~icons/carbon/chevron-right";
-import { export2JSON, readFile } from "~/logic/handle-files";
+import { export2JSON, readFile, localStore } from "~/logic/handle-files";
 
-interface FilecoinFile {
-  cid: string;
-  createdAt: number;
-  encryption: boolean;
-  fileName: string;
-  fileSizeInBytes: string;
-  id: string;
-  lastUpdate: number;
-  mimeType: string;
-  publicKey: string;
-  status: string;
-  txHash: string;
-}
+// interface FilecoinFile {
+//   cid: string;
+//   createdAt: number;
+//   encryption: boolean;
+//   fileName: string;
+//   fileSizeInBytes: string;
+//   id: string;
+//   lastUpdate: number;
+//   mimeType: string;
+//   publicKey: string;
+//   status: string;
+//   txHash: string;
+// }
 
 const handleFileSelection = async (file: any) => {
   const res = await readFile(file)
   console.log({ res })
 }
 
-const userFiles = ref<FilecoinFile[]>([
-  {
-    cid: "cid",
-    createdAt: 123,
-    encryption: true,
-    fileName: "fileName",
-    fileSizeInBytes: "fileSizeInBytes",
-    id: "id",
-    lastUpdate: 123,
-    mimeType: "mimeType",
-    publicKey: "publicKey",
-    status: "status",
-    txHash: "txHash",
-  }
-])
-const handleFileExport = () => export2JSON(userFiles.value)
+const handleFileExport = () => export2JSON(JSON.parse(String(localStore.value)))
 </script>
 
 <template>

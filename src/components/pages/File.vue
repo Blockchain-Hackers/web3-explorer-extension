@@ -4,12 +4,14 @@ import IconClean from "~icons/carbon/clean";
 import FileCard from "~/components/FileCard.vue";
 import lighthouse from "@lighthouse-web3/sdk";
 import { apiKey as _apiKey } from "~/logic/auth-store";
+import { localStore } from "~/logic/handle-files";
 
 let uploads = ref([]);
 const fetchUploads = async () => {
   try {
     let response = await lighthouse.getUploads(_apiKey.value);
     uploads.value = response.data.fileList;
+    localStore.value = JSON.stringify(uploads.value);
   } catch (error) {
     console.log(error);
   }
