@@ -36,9 +36,9 @@ export const decryptCIDFile = async (cid: string) => {
   return url;
 };
 
-const shareFile = async (shareeAddress: string, cid: string) => {
+export const shareCIDFile = async (shareeAddress: string, cid: string) => {
   const { publicKey, signedMessage } = await encryptionSignature();
-
+  console.log({ shareeAddress, cid });
   const res = await lighthouse.shareFile(
     publicKey,
     [shareeAddress],
@@ -50,7 +50,7 @@ const shareFile = async (shareeAddress: string, cid: string) => {
 
   return res;
 };
-const applyAccessConditions = async (cid: string) => {
+export const applyAccessConditions = async (cid: string) => {
   const conditions = [
     {
       id: 1,

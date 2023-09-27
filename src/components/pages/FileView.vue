@@ -2,8 +2,10 @@
 import IconCopy from "~icons/mdi/content-copy";
 import Link from "~/components/Link.vue";
 import { cId, userFile } from "~/logic/file-view-handler";
+import { decryptCIDFile, shareCIDFile } from "~/logic/useCIDEncryption";
 const fileDetails = JSON.parse(userFile.value);
 const copied = ref(false);
+const shareeAddress = ref("");
 const CopyText = async (text: string) => {
   try {
     await navigator.clipboard.writeText(text);
@@ -22,11 +24,24 @@ const details = ref([
   { name: "Encryption", value: fileDetails.encryption },
 ]);
 
+let FileUrl = `https://gateway.lighthouse.storage/ipfs/${cId}`;
+
+if (fileDetails.encryption) {
+  decryptCIDFile(cId.value).then((e) => console.log(e));
+}
+
 const options = ref([
   { name: "Open Url", path: "/open" },
   { name: "Renew", path: "/renew" },
   { name: "Repair", path: "/repair" },
 ]);
+
+const shareFile = async () => {
+  const resp = await shareCIDFile(shareeAddress.value, cId.value);
+  console.log(resp);
+
+  // if storage apikey is set, remove; else set
+};
 </script>
 
 <template>
@@ -112,12 +127,12 @@ const options = ref([
           </div>
         </div>
 
-        <form @submit.prevent="" class="w-full flex gap-2 mt-2">
+        <form @submit.prevent="shareFile" class="w-full flex gap-2 mt-2">
           <label class="relative block flex-1">
             <input
-              v-model="cId"
+              v-model="shareeAddress"
               type="text"
-              placeholder="Enter CID"
+              placeholder="Enter Sharee Address"
               required
               class="w-full bg-gray-100 p-4 py-2 rounded-md outline-none ring ring-inset ring-emerald-700 text-base"
             />
@@ -131,7 +146,7 @@ const options = ref([
         <h3>People file is shared with</h3>
         <div class="flex-grow relative mt-1">
           <div class="absolute inset-0 overflow-y-auto mb-3">
-            <div v-for="n in 6">I don't know how to do this yet</div>
+            <div v-for="_ in 6">I don't know how to do this yet</div>
           </div>
         </div>
       </div>
@@ -140,7 +155,7 @@ const options = ref([
         <Link
           v-for="option in options"
           class="w-full text-center"
-          :href="`https://ipfs.io/ipfs/${cId}`"
+          :href="`https://gateway.lighthouse.storage/ipfs/${cId}`"
         >
           {{ option.name }}
         </Link>
