@@ -21,10 +21,11 @@ const CopyText = async (text: string) => {
     setTimeout(() => (copied.value = false), 1000);
   } catch (err) {}
 };
-const dateCreated = (date: number) => {
+const dateCreated = computed(()=>(date: number | null) => {
+  if (!date) return "";
   const d = new Date(date);
   return `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`;
-};
+})
 
 const showMenu = ref(false);
 
@@ -69,7 +70,7 @@ const options = ref([
         </g>
       </svg>
       <span class="absolute bg-white rounded-md border-2 px-1 border-slate-500">
-        {{ dateCreated(userFile.createdAt) }}
+        {{ dateCreated(userFile?.createdAt ?? null) }}
       </span>
     </div>
     <div class="p-2 relative">
