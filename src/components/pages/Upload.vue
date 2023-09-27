@@ -6,6 +6,8 @@ import { ethers } from "ethers";
 import lighthouse from "@lighthouse-web3/sdk";
 import { encryptionSignature } from "~/logic/useCIDEncryption";
 import { apiKey as _apiKey } from "~/logic/auth-store";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 import axios from "axios";
 const progressCallback = (progressData) => {
   let percentageDone =
@@ -27,8 +29,9 @@ const handleSubmit = async () => {
     } else {
       await uploadFile(form.file);
     }
+    toast.success("File uploaded");
   } catch (error) {
-    console.log("error thrown");
+    toast.error(error.message);
   } finally {
     isLoading.value = false;
   }
