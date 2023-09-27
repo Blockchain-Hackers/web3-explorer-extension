@@ -34,7 +34,7 @@ watch(uploads, (value: FilecoinFile[])=>{
     }
   })
   if(data.length > 0){
-    localStore.value = [...parsedLocalStore.value, ...data]
+    localStore.value = [...data, ...parsedLocalStore.value]
   }
 })
 </script>
