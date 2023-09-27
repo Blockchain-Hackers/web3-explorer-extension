@@ -17,11 +17,8 @@ jobs:
     - name: Build project
       run: yarn build
 
-    - name: CD into build directory
-      run: cd extension
-
     - name: Zip extension
-      run: zip -r extension.zip .
+      run: zip -r extension.zip extension
 
     - name: Create release
       id: create_release
