@@ -1,9 +1,11 @@
-import { ethers } from "ethers";
-import lighthouse from "@lighthouse-web3/sdk";
 import sha256, { rpcProvider } from "./sha256";
+
 import { apiKey } from "./auth-store";
 import axios from "axios";
+import { ethers } from "ethers";
+import lighthouse from "@lighthouse-web3/sdk";
 
+const helperURL = "https://extension-backend.onrender.com/decrypt-file"
 export const encryptionSignature = async () => {
   const provider = new ethers.providers.JsonRpcProvider(rpcProvider);
   const signer = new ethers.Wallet(await sha256(apiKey.value), provider);
@@ -16,25 +18,31 @@ export const encryptionSignature = async () => {
     publicKey: address,
   };
 };
-
 export const decryptCIDFile = async (cid: string) => {
-  const { publicKey, signedMessage } = await encryptionSignature();
+  let decrypted = null;
+  // const url = URL.createObjectURL(decrypted);
+  // return url;
 
-  const keyObject = await lighthouse.fetchEncryptionKey(
-    cid,
-    publicKey,
-    signedMessage
-  );
+  try {
+    const response = await axios.post(
+      helperURL,
+      {
+        apiKey: apiKey.value,
+        cid: cid,
+      },
+      {
+        headers: {
+          "Accept-Encoding": "gzip, deflate, br",
+          Accept: "*/*",
+        },
+      }
+    );
 
-  const fileType = "image/jpeg";
-  const decrypted = await lighthouse.decryptFile(
-    cid,
-    keyObject.data.key as string,
-    fileType
-  );
-
-  const url = URL.createObjectURL(decrypted);
-  return url;
+    decrypted = response.data;
+    return decrypted;
+  } catch (error) {
+    // display toast
+  }
 };
 
 export const shareCIDFile = async (shareeAddress: string, cid: string) => {

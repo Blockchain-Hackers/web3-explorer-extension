@@ -10,6 +10,9 @@ import "vue3-toastify/dist/index.css";
 const fileDetails = JSON.parse(userFile.value);
 const copied = ref(false);
 const shareeAddress = ref("");
+import fileDownload from "js-file-download";
+
+// import { decryptCIDFile } from "~/logic/decryptCIDFile";
 const CopyText = async (text: string) => {
   try {
     await navigator.clipboard.writeText(text);
@@ -29,6 +32,7 @@ const details = ref([
 ]);
 
 let sharedTo = ref([]);
+let sharedLink = ref("");
 
 let FileUrl = `https://gateway.lighthouse.storage/ipfs/${cId}`;
 
@@ -51,6 +55,17 @@ const shareFile = async () => {
     toast.error(error.message);
   } finally {
     isSharingLoading.value = false;
+  }
+};
+
+const DownloadOrView = async () => {
+  if (fileDetails.encryption) {
+    const resp = await decryptCIDFile(cId.value);
+    // create blob from buffer
+    const blob = new Blob([resp], { type: fileDetails.mimeType });
+    fileDownload(blob, fileDetails.fileName, fileDetails.mimeType);
+  } else {
+    window.open(FileUrl, "_blank");
   }
 };
 
@@ -181,11 +196,25 @@ onMounted(() => accessConditions(fileDetails.cid));
 
       <div class="flex gap-2 justify-between text-sm pt-2">
         <Link
-          v-for="option in options"
           class="w-full text-center"
-          :href="`https://gateway.lighthouse.storage/ipfs/${cId}`"
+          :href="
+            fileDetails.encryption
+              ? sharedLink
+              : `https://gateway.lighthouse.storage/ipfs/${cId}`
+          "
         >
-          {{ option.name }}
+          Renew
+        </Link>
+
+        <Link
+          class="w-full text-center"
+          :href="
+            fileDetails.encryption
+              ? sharedLink
+              : `https://gateway.lighthouse.storage/ipfs/${cId}`
+          "
+        >
+          Repair
         </Link>
       </div>
     </div>
