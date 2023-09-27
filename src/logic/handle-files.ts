@@ -1,4 +1,5 @@
 import { useStorageLocal } from "~/composables/useStorageLocal";
+import { FilecoinFile } from "~/types";
 
 export function export2JSON(data: any) {
   const a = document.createElement("a");
@@ -31,17 +32,4 @@ export async function readFile(file: any): Promise<any> {
   }
 }
 
-interface FilecoinFile {
-  cid: string;
-  createdAt: number;
-  encryption: boolean;
-  fileName: string;
-  fileSizeInBytes: string;
-  id: string;
-  lastUpdate: number;
-  mimeType: string;
-  publicKey: string;
-  status: string;
-  txHash: string;
-}
 export const localStore = useStorageLocal<FilecoinFile[]>("localStore", []); // this will be saved in local storage as string

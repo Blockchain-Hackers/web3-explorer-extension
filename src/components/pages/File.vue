@@ -1,27 +1,42 @@
-<script setup>
+<script setup lang="ts">
 import IconRight from "~icons/carbon/chevron-right";
 import IconClean from "~icons/carbon/clean";
 import FileCard from "~/components/FileCard.vue";
 import lighthouse from "@lighthouse-web3/sdk";
 import { apiKey as _apiKey } from "~/logic/auth-store";
 import { localStore } from "~/logic/handle-files";
+import { FilecoinFile } from "~/types";
 
 const parsedLocalStore = computed(() => {
   return typeof localStore.value === "string"
     ? JSON.parse(localStore.value)
     : localStore.value;
 })
-let uploads = ref([]);
+let uploads = ref<FilecoinFile[]>([]);
 const fetchUploads = async () => {
   try {
     let response = await lighthouse.getUploads(_apiKey.value);
     uploads.value = response.data.fileList;
-    localStore.value = JSON.stringify(uploads.value);
   } catch (error) {
     console.log(error);
   }
 };
 onMounted(() => fetchUploads());
+
+// once records are fetched, check local data and update if cid is not present
+watch(uploads, (value: FilecoinFile[])=>{
+  const data:FilecoinFile[] = []
+  parsedLocalStore.value.forEach((localFile: FilecoinFile)=>{
+    let found = value.find((file: FilecoinFile)=>file.cid === localFile.cid);
+    if(!found){
+      console.log("not found", localFile);
+      data.push(localFile);
+    }
+  })
+  if(data.length > 0){
+    localStore.value = [...parsedLocalStore.value, ...data]
+  }
+})
 </script>
 
 <template>
