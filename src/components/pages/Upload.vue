@@ -1,6 +1,7 @@
 <script setup>
 import IconRight from "~icons/carbon/chevron-right";
 import IconCheck from "~icons/mdi/check";
+import IconLoading from "~icons/mdi/loading";
 import { ethers } from "ethers";
 import lighthouse from "@lighthouse-web3/sdk";
 import { encryptionSignature } from "~/logic/useCIDEncryption";
@@ -17,11 +18,19 @@ const form = reactive({
   encrypt: true,
 });
 
+const isLoading = ref(false);
 const handleSubmit = async () => {
-  if (form.encrypt) {
-    uploadFileEncrypted(form.file);
-  } else {
-    uploadFile(form.file);
+  isLoading.value = true;
+  try {
+    if (form.encrypt) {
+      await uploadFileEncrypted(form.file);
+    } else {
+      await uploadFile(form.file);
+    }
+  } catch (error) {
+    console.log("error thrown");
+  } finally {
+    isLoading.value = false;
   }
 };
 
@@ -110,8 +119,15 @@ const uploadFile = async (file) => {
             </div>
           </label>
 
-          <button class="block bg-emerald-600 w-full p-2 rounded-md text-white">
-            upload
+          <button
+            class="block bg-emerald-600 w-full p-2 rounded-md text-white"
+            style="display: flex; justify-content: center"
+            :disabled="isLoading"
+          >
+            <span v-if="isLoading" style="text-align: center">
+              <IconLoading class="animate-spin check" />
+            </span>
+            <span v-else> upload </span>
           </button>
         </div>
       </form>
