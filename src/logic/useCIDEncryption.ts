@@ -2,6 +2,7 @@ import { ethers } from "ethers";
 import lighthouse from "@lighthouse-web3/sdk";
 import sha256, { rpcProvider } from "./sha256";
 import { apiKey } from "./auth-store";
+import axios from "axios";
 
 export const encryptionSignature = async () => {
   const provider = new ethers.providers.JsonRpcProvider(rpcProvider);
@@ -77,4 +78,24 @@ export const applyAccessConditions = async (cid: string) => {
   console.log(response);
 
   return response;
+};
+
+const register_job = async (cid: any) => {
+  const formData = new FormData();
+  const requestReceivedTime = new Date();
+  const endDate = requestReceivedTime.setMonth(
+    requestReceivedTime.getMonth() + 1
+  );
+  const replicationTarget = 2;
+  const epochs = 4; // how many epochs before deal end should deal be renewed
+  formData.append("cid", cid);
+  formData.append("endDate", `${endDate}`);
+  formData.append("replicationTarget", `${replicationTarget}`);
+  formData.append("epochs", `${epochs}`);
+
+  const response = await axios.post(
+    `https://calibration.lighthouse.storage/api/register_job`,
+    formData
+  );
+  console.log(response.data);
 };
