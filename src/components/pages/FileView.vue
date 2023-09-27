@@ -4,6 +4,7 @@ import Link from "~/components/Link.vue";
 import { cId, userFile } from "~/logic/file-view-handler";
 import IconLoading from "~icons/mdi/loading";
 import lighthouse from "@lighthouse-web3/sdk";
+import axios from "axios";
 import { decryptCIDFile, shareCIDFile } from "~/logic/useCIDEncryption";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
@@ -16,6 +17,7 @@ import fileDownload from "js-file-download";
 const CopyText = async (text: string) => {
   try {
     await navigator.clipboard.writeText(text);
+    toast.success("CID copied");
     copied.value = true;
     setTimeout(() => (copied.value = false), 1000);
   } catch (err) {}
@@ -66,6 +68,30 @@ const DownloadOrView = async () => {
     fileDownload(blob, fileDetails.fileName, fileDetails.mimeType);
   } else {
     window.open(FileUrl, "_blank");
+  }
+};
+
+const register_job = async (operation: string) => {
+  try {
+    const formData = new FormData();
+    const requestReceivedTime = new Date();
+    const endDate = requestReceivedTime.setMonth(
+      requestReceivedTime.getMonth() + 1
+    );
+    const replicationTarget = 2;
+    const epochs = 4; // how many epochs before deal end should deal be renewed
+    formData.append("cid", cId.value);
+    formData.append("endDate", `${endDate}`);
+    formData.append("replicationTarget", `${replicationTarget}`);
+    formData.append("epochs", `${epochs}`);
+
+    await axios.post(
+      `https://calibration.lighthouse.storage/api/register_job`,
+      formData
+    );
+    toast.success(`File ${operation}`);
+  } catch (error: any) {
+    toast.error(error.message);
   }
 };
 
@@ -200,25 +226,11 @@ onMounted(() => accessConditions(fileDetails.cid));
         <Link class="w-full text-center" @click="DownloadOrView">
           {{ fileDetails.encryption ? "Download" : "Open Url" }}
         </Link>
-        <Link
-          class="w-full text-center"
-          :href="
-            fileDetails.encryption
-              ? sharedLink
-              : `https://gateway.lighthouse.storage/ipfs/${cId}`
-          "
-        >
+        <Link class="w-full text-center" @click="register_job('Renew')">
           Renew
         </Link>
 
-        <Link
-          class="w-full text-center"
-          :href="
-            fileDetails.encryption
-              ? sharedLink
-              : `https://gateway.lighthouse.storage/ipfs/${cId}`
-          "
-        >
+        <Link class="w-full text-center" @click="register_job('Repair')">
           Repair
         </Link>
       </div>
