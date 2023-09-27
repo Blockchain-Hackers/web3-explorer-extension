@@ -247,11 +247,12 @@ onMounted(() => accessConditions(fileDetails.cid));
         </div>
       </div>
 
-      <div
-        class="flex gap-2 justify-between text-sm pt-2"
-        style="display: flex; justify-content: center"
-      >
-        <Link class="w-full text-center" @click="DownloadOrView">
+      <div class="flex gap-2 justify-between text-sm pt-2">
+        <Link
+          class="w-full text-center"
+          @click="DownloadOrView"
+          style="display: flex; justify-content: center"
+        >
           <span v-if="isDownloading" style="text-align: center">
             <IconLoading class="animate-spin check" />
           </span>
